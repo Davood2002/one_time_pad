@@ -6,22 +6,21 @@ read mode
 if [ "$mode" = e ];
 then
     echo "Enter the path to the plaintext:"
-    read plain
+    read plain_path
 
     # generate key
-    length=$(stat --format=%s $plain)
+    length=$(stat --format=%s $plain_path)
     openssl rand -out key.bin $length
-    key=key.bin
-    # human-readable key
-    base64 key.bin > key:${plain}.txt
+    key_path=key.bin
+    base64 key.bin > key{${plain_path}}.txt   # base64-encoded key
 
-    python ${plain} ${key}
+    python XOR.py ${plain_path} ${key_path}   # gerenate the ciphertext
 
-    base64 out.txt > cipher:${plain}
-    
+    base64 out.bin > cipher{${plain_path}}.txt   # base64-encoded ciphertext
+
     # clean things up
-    rm --force out.txt
-    rm --force ${key}
+    rm --force out.bin
+    rm --force ${key_path}
 
 # decryption mode
 elif [ "$mode" = d ];
