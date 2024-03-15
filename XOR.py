@@ -1,25 +1,29 @@
-# this scripts gets two "binary" files,
-# performs bit-wise XOR on them,
-# and saves the result as a binary file.
+from sys import argv as arg
 
-import sys
-file1 = sys.argv[1]
-file2 = sys.argv[2]
+# define a function to read binary files
+def read_binary_file(file_path) -> bytearray:
+    with open(file_path, 'rb') as file:
+        array = bytearray(file.read())
+        return array
 
-
-with open(file1, "r") as file1 , open(file2, "rb") as file2:
-    
-    # read input files
-    binary1 = file1.read()
-    binary2 = file2.read()
-    # print(type(binary1), len(binary1))
-    # print(type(binary1), len(binary1))
-
-    # Perform XOR operation byte by byte
+# Perform XOR operation byte by byte
+def XOR(array1 , array2):
     xor_result = bytearray()
-    for byte1 , byte2 in zip(binary1, binary2):
+    for byte1 , byte2 in zip(array1 , array2):
         xor_result.append(byte1 ^ byte2)
+    return xor_result
+    
+path1 = arg[1]
+path2 = arg[2]
 
-    # save result to a new file
-    with open("out.txt" , "wb") as output_file:
-        output_file.write(xor_result)
+array1 = read_binary_file(path1)
+array2 = read_binary_file(path2)
+
+xor_result = XOR(array1 , array2)
+
+# save result to a new file
+with open("out.bin" , "wb+") as output_file:
+    output_file.write(xor_result)
+
+len(array2)
+len(XOR(array1 , array2))
