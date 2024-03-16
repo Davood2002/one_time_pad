@@ -1,5 +1,11 @@
+#! /bin/bash
+
+# welcome message
+echo "Chreated by Davood!"
+echo "Contact me at +989397478182 in Telegram."
+
 # get mode
-echo "Enter 'e' for encryption and 'd' for decryption."
+echo "Enter 'e' for encryption and 'd' for decryption:"
 read mode
 echo
 
